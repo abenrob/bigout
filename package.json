@@ -1,0 +1,14 @@
+{
+  "name": "bigOut",
+  "version": "0.0.0",
+  "description": "convert big presentations to pdf",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "https://github.com/abenrob",
+  "license": "ISC",
+  "dependencies": {
+    "scissors": "^0.1.0"
+  }
+}
