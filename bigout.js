@@ -30,7 +30,7 @@ casper.start(
       this.thenOpen(url+'#'+page, function() {
         this.echo(this.getTitle()); // display the title of page
         this.viewport(w, h);
-        this.capture('outputs/pwf-'+page+'.png', {
+        this.capture('outputs/'+page+'.png', {
           top: 0,
           left: 0,
           width: w,
