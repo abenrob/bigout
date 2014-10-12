@@ -9,7 +9,7 @@ Replaced dependency on phantomjs and casperjs system installs by adding them as 
 
 =====
 #####usage
-print out pngs of pages 0 through 38 (all of 'em') of my [playingwithfire](http://abenrob.com/playingwithfire/) presentation:
+create pdf of pages 0 through 38 (all of 'em') of my [playingwithfire](http://abenrob.com/playingwithfire/) presentation:
 
 ```node bigout.js http://abenrob.com/playingwithfire/ 0 38```
 
