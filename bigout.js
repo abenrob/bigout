@@ -1,43 +1,63 @@
-var casper = require('casper').create();
+// args validation and variable assignment
+var argslen = process.argv.length;
 
-var url,start,end;
-
-if (casper.cli.args.length < 3) {
-  casper
-    .echo("Usage: $ casperjs bigout.js http://example.com startNum endNum")
-    .exit(1)
-  ;
-} else {
-  url = casper.cli.args[0];
-  start = casper.cli.args[1];
-  end = casper.cli.args[2];
+if (argslen < 5) {
+  console.log('missing args');
+  console.log('Usage: $ node bigout.js http://example-big-presentation.com startNum endNum');
+  process.exit(1);
 }
 
-var h = 768, w = 1024, pageArray = [];
+var url = process.argv[2];
+var start = process.argv[3];
+var end = process.argv[4];
 
-for (var i = start; i <= end; i++){
-  pageArray.push(i);
+
+// shelljs to call local phantomjs
+var shell = require('shelljs');
+var phjs = 'node_modules/phantomjs/bin/phantomjs';
+
+shell.exec(phjs+' index.js '+url+' '+start+' '+end);
+
+// PDF Kit
+var PDFDocument = require('pdfkit');
+var fs = require('fs');
+
+var outDir = fs.readdirSync('outputs/');
+
+var outputs = [];
+for (var i=0; i < outDir.length; i++){
+  if (outDir[i].split('.')[1] === 'png'){
+    outputs.push(outDir[i]);
+  }
 }
 
-casper.start(
-    url+'#'+start, function(){
-      this.echo('starting'); // display the title of page
-      this.viewport(w, h);
+var doc_options = {
+        size: 'A4',
+        layout: 'landscape',
+        info: {
+            Title: 'big.js presentation',
+            Author: 'bigOut'
+        }
     }
-  ).then(function() {
-    this.each(pageArray, function(casper,page) { 
-      this.echo(page);
-      this.thenOpen(url+'#'+page, function() {
-        this.echo(this.getTitle()); // display the title of page
-        this.viewport(w, h);
-        this.capture('outputs/'+page+'.png', {
-          top: 0,
-          left: 0,
-          width: w,
-          height: h
-        });
-      });
-    });
-});
 
-casper.run();
+var doc = new PDFDocument(doc_options);
+
+var outDoc = fs.createWriteStream('bigOut.pdf');
+
+doc.pipe(outDoc);
+
+for (var i=0; i < outputs.length; i++){
+  if (i > 0){
+    doc.addPage();
+  }
+  doc.image('outputs/'+outputs[i], 0, 0, {width: 841, height: 595});
+}
+
+for (var i=0; i < outDir.length; i++){
+  if (outDir[i].split('.')[1] === 'png'){
+    fs.unlink('outputs/'+outDir[i]);
+  }
+}
+
+// finalize the PDF and end the stream
+doc.end();

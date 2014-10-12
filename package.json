@@ -1,0 +1,33 @@
+{
+  "name": "bigOut",
+  "version": "0.0.0",
+  "description": "consume and convert big.js presentations into pdfs.",
+  "main": "bigout.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/abenrob/bigout.git"
+  },
+  "keywords": [
+    "bigjs",
+    "pdf",
+    "slideshow",
+    "phantomjs",
+    "casperjs",
+    "pdfkit"
+  ],
+  "author": "Adam Roberts",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/abenrob/bigout/issues"
+  },
+  "homepage": "https://github.com/abenrob/bigout",
+  "dependencies": {
+    "phantomjs": "^1.9.10",
+    "casperjs": "^1.1.0-beta3",
+    "shelljs": "^0.3.0",
+    "pdfkit": "^0.7.0"
+  }
+}
