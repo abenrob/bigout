@@ -32,13 +32,13 @@ for (var i=0; i < outDir.length; i++){
 }
 
 var doc_options = {
-        size: 'A4',
-        layout: 'landscape',
-        info: {
-            Title: 'big.js presentation',
-            Author: 'bigOut'
-        }
-    }
+  size: 'A4',
+  layout: 'landscape',
+  info: {
+    Title: 'big.js presentation',
+    Author: 'bigOut'
+  }
+}
 
 var doc = new PDFDocument(doc_options);
 
